@@ -6,7 +6,7 @@
 /*   By: dlavaury <dlavaury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/19 16:25:50 by dlavaury          #+#    #+#             */
-/*   Updated: 2018/12/20 16:35:14 by dlavaury         ###   ########.fr       */
+/*   Updated: 2018/12/20 16:39:17 by dlavaury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,6 @@ export class TabsPage implements OnInit, OnDestroy {
     );
     this.userService.emitIsAuth();
   }
-
-
 
   ngOnDestroy() {
     this.accountSubscription.unsubscribe();
