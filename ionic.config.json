@@ -1,5 +1,7 @@
 {
   "name": "TERNOA_MOBILE_APP",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "ionic-angular"
 }
