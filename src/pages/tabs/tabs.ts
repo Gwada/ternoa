@@ -17,6 +17,7 @@ import { AccountPage } from '../account/account';
 import { Subscription } from 'rxjs/Subscription';
 import { LoginPage } from '../login/login';
 import { UserProvider } from '../../providers/user/user';
+import { CapsulesPage } from '../capsules/capsules'
 
 @Injectable()
 @Component({
