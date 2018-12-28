@@ -13,20 +13,22 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { HttpModule } from '@angular/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SplashScreen } from '@ionic-native/splash-screen';
+import { StatusBar } from '@ionic-native/status-bar';
+
 import { MyApp } from './app.component';
 
+import { HomePage } from '../pages/home/home';
 import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
-import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
-
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
 import { AccountPage } from '../pages/account/account';
 import { LoginPage } from '../pages/login/login';
 import { RegisterPage } from '../pages/register/register';
+import { CapsulesPage } from '../pages/capsules/capsules'
+
 import { RequestProvider } from '../providers/request/request';
 import { UserProvider } from '../providers/user/user';
 
@@ -39,7 +41,8 @@ import { UserProvider } from '../providers/user/user';
     TabsPage,
     AccountPage,
     LoginPage,
-    RegisterPage
+    RegisterPage,
+    CapsulesPage
   ],
   imports: [
     BrowserModule,
@@ -57,7 +60,8 @@ import { UserProvider } from '../providers/user/user';
     TabsPage,
     AccountPage,
     LoginPage,
-    RegisterPage
+    RegisterPage,
+    CapsulesPage
   ],
   providers: [
     StatusBar,
