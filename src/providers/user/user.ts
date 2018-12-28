@@ -6,7 +6,7 @@
 /*   By: dlavaury <dlavaury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 14:14:57 by dlavaury          #+#    #+#             */
-/*   Updated: 2018/12/20 16:30:15 by dlavaury         ###   ########.fr       */
+/*   Updated: 2018/12/20 17:03:34 by dlavaury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,14 @@ import { RequestProvider } from '../request/request';
 @Injectable()
 export class UserProvider {
   private user: User;
-  user$ = new Subject<User>();
   private isAuth: boolean = false;
+
+  user$ = new Subject<User>();
   isAuth$ = new Subject<boolean>();
   
   constructor(private reqService: RequestProvider) {
-      console.log('Hello UserProvider Provider');
-    }
+    console.log('Hello UserProvider Provider');
+  }
     
   emitIsAuth(): void {
     this.isAuth$.next(this.isAuth);
