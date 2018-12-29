@@ -6,7 +6,7 @@
 /*   By: dlavaury <dlavaury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 09:36:20 by dlavaury          #+#    #+#             */
-/*   Updated: 2018/12/20 16:56:55 by dlavaury         ###   ########.fr       */
+/*   Updated: 2018/12/29 12:32:36 by dlavaury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
 import { TabsPage } from '../pages/tabs/tabs';
 import { AccountPage } from '../pages/account/account';
-import { LoginPage } from '../pages/login/login';
-import { RegisterPage } from '../pages/register/register';
+import { LoginPage } from '../pages/account/login/login';
+import { RegisterPage } from '../pages/account/register/register';
 import { CapsulesPage } from '../pages/capsules/capsules'
 
 import { RequestProvider } from '../providers/request/request';

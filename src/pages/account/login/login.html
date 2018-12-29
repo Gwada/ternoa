@@ -26,6 +26,9 @@
         <ion-input type="password" formControlName="password"></ion-input>
       </ion-item>
     </ion-list>
+    <ion-item>
+      <a (click)="onGoToRequestPasswordResetting()">Mot de passe oublié ?</a>
+    </ion-item>
     <button ion-button
             full
             [disabled]="authForm.invalid"

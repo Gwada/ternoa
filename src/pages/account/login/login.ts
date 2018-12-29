@@ -6,15 +6,15 @@
 /*   By: dlavaury <dlavaury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/19 16:25:46 by dlavaury          #+#    #+#             */
-/*   Updated: 2018/12/20 16:57:04 by dlavaury         ###   ########.fr       */
+/*   Updated: 2018/12/29 12:45:03 by dlavaury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 import { Component } from '@angular/core';
 import { IonicPage, LoadingController, MenuController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { UserProvider } from '../../providers/user/user';
-import { LoginForm } from '../../models/LoginForm';
+import { UserProvider } from '../../../providers/user/user';
+import { LoginForm } from '../../../models/LoginForm';
 
 @IonicPage()
 @Component({
@@ -58,6 +58,10 @@ export class LoginPage {
         console.log(err);
       }
     );
+  }
+
+  onGoToRequestPasswordResetting() {
+    console.log('test');
   }
 
   onToggleMenu() {

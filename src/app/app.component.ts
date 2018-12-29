@@ -6,7 +6,7 @@
 /*   By: dlavaury <dlavaury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 14:04:19 by dlavaury          #+#    #+#             */
-/*   Updated: 2018/12/20 16:27:49 by dlavaury         ###   ########.fr       */
+/*   Updated: 2018/12/29 12:33:08 by dlavaury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { TabsPage } from '../pages/tabs/tabs';
 import { Subscription } from 'rxjs/Subscription';
-import { LoginPage } from '../pages/login/login';
-import { RegisterPage } from '../pages/register/register';
+import { LoginPage } from '../pages/account/login/login';
+import { RegisterPage } from '../pages/account/register/register';
 import { UserProvider } from '../providers/user/user';
 
 @Component({

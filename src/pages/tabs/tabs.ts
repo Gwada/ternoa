@@ -6,7 +6,7 @@
 /*   By: dlavaury <dlavaury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/19 16:25:50 by dlavaury          #+#    #+#             */
-/*   Updated: 2018/12/20 16:57:00 by dlavaury         ###   ########.fr       */
+/*   Updated: 2018/12/29 12:35:46 by dlavaury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,8 @@ import { Component, OnInit, OnDestroy, Injectable } from '@angular/core';
 import { HomePage } from '../home/home';
 import { AccountPage } from '../account/account';
 import { Subscription } from 'rxjs/Subscription';
-import { LoginPage } from '../login/login';
+import { LoginPage } from '../account/login/login';
 import { UserProvider } from '../../providers/user/user';
-import { CapsulesPage } from '../capsules/capsules'
 
 @Injectable()
 @Component({
@@ -45,7 +44,7 @@ export class TabsPage implements OnInit, OnDestroy {
     this.userService.emitIsAuth();
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.accountSubscription.unsubscribe();
   }
 }
