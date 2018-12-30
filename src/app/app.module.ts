@@ -6,7 +6,7 @@
 /*   By: dlavaury <dlavaury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 09:36:20 by dlavaury          #+#    #+#             */
-/*   Updated: 2018/12/29 12:32:36 by dlavaury         ###   ########.fr       */
+/*   Updated: 2018/12/29 16:18:36 by dlavaury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ import { CapsulesPage } from '../pages/capsules/capsules'
 
 import { RequestProvider } from '../providers/request/request';
 import { UserProvider } from '../providers/user/user';
+import { RequestPasswordResettingPage } from '../pages/account/request-password-resetting/request-password-resetting';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { UserProvider } from '../providers/user/user';
     AccountPage,
     LoginPage,
     RegisterPage,
-    CapsulesPage
+    CapsulesPage,
+    RequestPasswordResettingPage
   ],
   imports: [
     BrowserModule,
@@ -61,7 +63,8 @@ import { UserProvider } from '../providers/user/user';
     AccountPage,
     LoginPage,
     RegisterPage,
-    CapsulesPage
+    CapsulesPage,
+    RequestPasswordResettingPage
   ],
   providers: [
     StatusBar,

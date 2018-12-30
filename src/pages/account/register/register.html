@@ -1,19 +1,30 @@
 <ion-header>
-
-    <ion-navbar>
-      <ion-buttons start>
-        <button ion-button
-                icon-only 
-                (click)="onToggleMenu()">
-          <ion-icon name="menu"></ion-icon>
-        </button>
-      </ion-buttons>
-      <ion-title>Inscription</ion-title>
-    </ion-navbar>
-  
-  </ion-header>
-
+  <ion-navbar>
+    <ion-title>Inscription</ion-title>
+  </ion-navbar>
+</ion-header>
 
 <ion-content padding>
-
+  <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+    <ion-list>
+      <ion-item>
+        <ion-label floating>Firstname</ion-label>
+        <ion-input type="text" formControlName="firstName"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Lastname</ion-label>
+        <ion-input type="text" formControlName="lastName"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Email</ion-label>
+        <ion-input type="text" formControlName="email"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Password</ion-label>
+        <ion-input type="password" formControlName="plainPassword"></ion-input>
+      </ion-item>
+    </ion-list>
+    <button ion-button full [disabled]="signUpForm.invalid">Signup</button>
+  </form>
+  <button ion-button full (click)="onGoToLoginPage()">close</button>
 </ion-content>

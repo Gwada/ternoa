@@ -6,7 +6,7 @@
 /*   By: dlavaury <dlavaury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 14:14:57 by dlavaury          #+#    #+#             */
-/*   Updated: 2018/12/20 17:03:34 by dlavaury         ###   ########.fr       */
+/*   Updated: 2018/12/30 02:04:25 by dlavaury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,16 @@ import { LoginForm } from '../../models/LoginForm';
 import { User } from '../../models/User';
 import { Subject } from 'rxjs/Subject';
 import { RequestProvider } from '../request/request';
+import { RegisterForm } from '../../models/registerForm';
 
 @Injectable()
 export class UserProvider {
   private user: User;
   private isAuth: boolean = false;
-
-  user$ = new Subject<User>();
-  isAuth$ = new Subject<boolean>();
+  public user$ = new Subject<User>();
+  public isAuth$ = new Subject<boolean>();
   
   constructor(private reqService: RequestProvider) {
-    console.log('Hello UserProvider Provider');
   }
     
   emitIsAuth(): void {
@@ -41,14 +40,13 @@ export class UserProvider {
   }
 
   getToken(form: LoginForm): Promise<any> {
-    console.log(form);
     return new Promise(
-      (resolve, reject) => this.reqService.post('login_check', form).then(
+      (resolve, reject) => this.reqService.post('login_check', form, 'json').then(
         (resp) => {
           this.reqService.setToken(resp.token ? resp.token : '');
           resolve(true);
         },
-        (err) => reject(err)
+        (error) => reject(error)
       )
     );
   }
@@ -58,26 +56,42 @@ export class UserProvider {
       (resolve, reject) => this.reqService.get('profile').then(
         (profile) => {
           this.isAuth = true;
+          this.user = profile;
           this.emitIsAuth();
+          this.emitUser();
           resolve(profile);
         },
-        (err) => reject(err)
+        (error) => reject(error)
       )
     );
   }
 
-  signIn(form: LoginForm): Promise<boolean> {
+  signIn(form: LoginForm): Promise<any> {
     return new Promise(
       (resolve, reject) => this.getToken(form).then(
         (token: boolean) => this.getProfile().then(
-          (profile) => {
-            resolve(profile);
-          },
-          (err) => reject(err)
+          (profile) => resolve(profile),
+          (error) => reject(error)
         ),
-        (err) => reject(err)
+        (error) => reject(error)
       )
     );
+  }
+
+  signUp(form: RegisterForm): Promise<any> {
+    return new Promise(
+      (resolve, reject) => this.reqService.post('users', form, 'json').then(
+        () => resolve(true),
+        (error) => reject(error)
+      )
+    );
+  }
+
+  logOut() {
+    delete(this.user);
+    this.isAuth = false;
+    this.emitIsAuth();
+    this.emitUser();
   }
 
 }

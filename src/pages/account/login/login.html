@@ -1,37 +1,23 @@
 <ion-header>
-
-    <ion-navbar>
-      <ion-buttons start>
-        <button ion-button
-                icon-only 
-                (click)="onToggleMenu()">
-          <ion-icon name="menu"></ion-icon>
-        </button>
-      </ion-buttons>
-      <ion-title>Connexion</ion-title>
-    </ion-navbar>
-  
-  </ion-header>
-
+  <ion-navbar>
+    <ion-title>Connexion</ion-title>
+  </ion-navbar>
+</ion-header>
 
 <ion-content padding>
-  <form [formGroup]="authForm">
+  <form [formGroup]="authForm" (ngSubmit)="onSubmit()">
     <ion-list>
       <ion-item>
-        <ion-label floating>email or username</ion-label>
+        <ion-label floating>Email</ion-label>
         <ion-input type="text" formControlName="email"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label floating>password</ion-label>
+        <ion-label floating>Password</ion-label>
         <ion-input type="password" formControlName="password"></ion-input>
       </ion-item>
     </ion-list>
-    <ion-item>
-      <a (click)="onGoToRequestPasswordResetting()">Mot de passe oublié ?</a>
-    </ion-item>
-    <button ion-button
-            full
-            [disabled]="authForm.invalid"
-            (click)="onSubmitForm()">login</button>
+    <a (click)="onGoToRequestPasswordResetting()">Forgot password ?</a>
+    <button ion-button full [disabled]="authForm.invalid">Login</button>
   </form>
+  <button ion-button full (click)="onGoToRegisterPage()">Sign up</button>
 </ion-content>

@@ -6,7 +6,7 @@
 /*   By: dlavaury <dlavaury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 14:13:35 by dlavaury          #+#    #+#             */
-/*   Updated: 2018/12/20 17:03:31 by dlavaury         ###   ########.fr       */
+/*   Updated: 2018/12/29 22:15:16 by dlavaury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,23 +19,21 @@ export class RequestProvider {
   private token: string = '';
 
   constructor(public http: Http) {
-    console.log('Hello RequestProvider Provider');
   }
 
-  initRequest(endPoint: string): {url: string, options: RequestOptions} {
+  initRequest(endPoint: string, dataType?: string): {url: string, options: RequestOptions} {
     return {
       url: this.apiBaseUrl + endPoint,
-      options: new RequestOptions({headers: this.setHeaders()})
+      options: new RequestOptions({headers: this.setHeaders(dataType)})
     };
   }
 
-  setHeaders(): Headers {
-    const headers = new Headers({'Content-Type': 'application/json'});
+  setHeaders(type: string): Headers {
+    const headers = new Headers();
+    const token = 'Bearer ' + this.token;
 
-    if (this.token.length > 0) {
-      headers.append('Authorization', 'Bearer ' + this.token);
-    }
-    console.log(headers);
+    type === 'json' ? headers.append('Content-Type', 'application/json') : 0;
+    this.token.length > 0 ? headers.append('Authorization', token) : 0;
     return headers;
   }
 
@@ -50,8 +48,8 @@ export class RequestProvider {
     );
   }
 
-  post(endPoint: string, body: any): Promise<any> {
-    const req: any = this.initRequest(endPoint);
+  post(endPoint: string, body: any, dataType?: string): Promise<any> {
+    const req: any = this.initRequest(endPoint, dataType);
 
     return new Promise(
       (resolve, reject) => this.http.post(req.url, body, req.options).subscribe(
@@ -59,6 +57,13 @@ export class RequestProvider {
         (err: any) => reject(err.json())
       )
     );
+  }
+
+  setBody(data: any): FormData {
+    const body = new FormData();
+
+    data.forEach((elem: any) => body.append(elem[0], elem[1]));
+    return body;
   }
 
   setToken(token: string) {
