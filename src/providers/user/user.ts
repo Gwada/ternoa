@@ -6,7 +6,7 @@
 /*   By: dlavaury <dlavaury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 14:14:57 by dlavaury          #+#    #+#             */
-/*   Updated: 2018/12/30 02:04:25 by dlavaury         ###   ########.fr       */
+/*   Updated: 2018/12/30 03:59:48 by dlavaury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ import { User } from '../../models/User';
 import { Subject } from 'rxjs/Subject';
 import { RequestProvider } from '../request/request';
 import { RegisterForm } from '../../models/registerForm';
+import { Storage } from '@ionic/storage';
 
 @Injectable()
 export class UserProvider {
@@ -24,7 +25,8 @@ export class UserProvider {
   public user$ = new Subject<User>();
   public isAuth$ = new Subject<boolean>();
   
-  constructor(private reqService: RequestProvider) {
+  constructor(private reqService: RequestProvider,
+              private storage: Storage) {
   }
     
   emitIsAuth(): void {
@@ -43,7 +45,11 @@ export class UserProvider {
     return new Promise(
       (resolve, reject) => this.reqService.post('login_check', form, 'json').then(
         (resp) => {
-          this.reqService.setToken(resp.token ? resp.token : '');
+          if (!resp || !resp.token || resp.token.len < 1) {
+            reject(false);
+          }
+          this.reqService.setToken(resp.token);
+          this.storage.set('ternoaToken', resp.token);
           resolve(true);
         },
         (error) => reject(error)
@@ -90,6 +96,7 @@ export class UserProvider {
   logOut() {
     delete(this.user);
     this.isAuth = false;
+    this.storage.remove('ternoaToken');
     this.emitIsAuth();
     this.emitUser();
   }

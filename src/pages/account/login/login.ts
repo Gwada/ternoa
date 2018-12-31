@@ -6,7 +6,7 @@
 /*   By: dlavaury <dlavaury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/19 16:25:46 by dlavaury          #+#    #+#             */
-/*   Updated: 2018/12/30 02:06:01 by dlavaury         ###   ########.fr       */
+/*   Updated: 2018/12/30 02:49:54 by dlavaury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ import { UserProvider } from '../../../providers/user/user';
 import { LoginForm } from '../../../models/LoginForm';
 import { RequestPasswordResettingPage } from '../request-password-resetting/request-password-resetting';
 import { RegisterPage } from '../register/register';
-import { AccountPage } from '../account';
+import { TabsPage } from '../../tabs/tabs';
 
 @IonicPage()
 @Component({
@@ -54,7 +54,7 @@ export class LoginPage {
     this.userService.signIn(formValue).then(
       (resp) => {
         loader.dismiss();
-        this.navCtrl.setRoot(AccountPage);
+        this.navCtrl.setRoot(TabsPage);
       },
       (err) => loader.dismiss()
     );
@@ -66,5 +66,9 @@ export class LoginPage {
 
   onGoToRegisterPage() {
     this.navCtrl.setRoot(RegisterPage);
+  }
+
+  onGoToTabsPage() {
+    this.navCtrl.setRoot(TabsPage);
   }
 }

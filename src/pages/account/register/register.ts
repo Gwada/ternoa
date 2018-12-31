@@ -6,7 +6,7 @@
 /*   By: dlavaury <dlavaury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 14:05:13 by dlavaury          #+#    #+#             */
-/*   Updated: 2018/12/30 02:07:27 by dlavaury         ###   ########.fr       */
+/*   Updated: 2018/12/30 02:51:06 by dlavaury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ import { LoginPage } from '../login/login';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { RegisterForm } from '../../../models/registerForm';
 import { UserProvider } from '../../../providers/user/user';
-import { AccountPage } from '../account';
+import { TabsPage } from '../../tabs/tabs';
 
 @IonicPage()
 @Component({
@@ -84,7 +84,7 @@ export class RegisterPage implements OnInit {
         position: 'bottom'
       }
     ).present();
-    this.navCtrl.setRoot(AccountPage);
+    this.navCtrl.setRoot(TabsPage);
   }
 
   onFaillureSignup(toDismiss: Loading, message: string): void {
@@ -110,6 +110,10 @@ export class RegisterPage implements OnInit {
 
   onGoToLoginPage(): void {
     this.navCtrl.setRoot(LoginPage);
+  }
+
+  onGoToTabsPage() {
+    this.navCtrl.setRoot(TabsPage);
   }
 
 }

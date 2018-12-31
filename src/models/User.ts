@@ -6,19 +6,19 @@
 /*   By: dlavaury <dlavaury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 16:56:10 by dlavaury          #+#    #+#             */
-/*   Updated: 2018/12/30 02:10:05 by dlavaury         ###   ########.fr       */
+/*   Updated: 2018/12/30 02:38:40 by dlavaury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 export class User {
-    '@context': string = '';
+    '@context': string;
     city: any = null;
 
-    email: string = '';
-    fullname: string = '';
-    username: string = '';
-    firstName: string = '';
-    lastName: string = '';
+    email: string;
+    fullname: string;
+    username: string;
+    firstName: string;
+    lastName: string;
 
     capsules: any[] = [];
     intentedCapsules: any[] = [];
