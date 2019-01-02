@@ -6,7 +6,7 @@
 /*   By: dlavaury <dlavaury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 14:14:57 by dlavaury          #+#    #+#             */
-/*   Updated: 2018/12/30 03:59:48 by dlavaury         ###   ########.fr       */
+/*   Updated: 2019/01/02 09:26:25 by dlavaury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ export class UserProvider {
           this.user = profile;
           this.emitIsAuth();
           this.emitUser();
+          console.log(profile);
           resolve(profile);
         },
         (error) => reject(error)

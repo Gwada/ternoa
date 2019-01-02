@@ -6,7 +6,7 @@
 /*   By: dlavaury <dlavaury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 09:36:20 by dlavaury          #+#    #+#             */
-/*   Updated: 2018/12/30 03:44:24 by dlavaury         ###   ########.fr       */
+/*   Updated: 2019/01/02 15:45:03 by dlavaury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,8 @@ import { IonicStorageModule } from '@ionic/storage';
 
 import { MyApp } from './app.component';
 
-import { AboutPage } from '../pages/about/about';
 import { AccountPage } from '../pages/account/account';
-import { CapsulesPage } from '../pages/capsules/capsules'
-import { ContactPage } from '../pages/contact/contact';
+import { CapsulesPage } from '../pages/capsules/capsules';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/account/login/login';
 import { RegisterPage } from '../pages/account/register/register';
@@ -34,19 +32,27 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { RequestProvider } from '../providers/request/request';
 import { StorageProvider } from '../providers/storage/storage';
 import { UserProvider } from '../providers/user/user';
+import { DevAppAccessComponent } from '../components/dev-app-access/dev-app-access';
+import { RecentsCapsulesComponent } from '../components/recents-capsules/recents-capsules';
+import { CreatedCapsulesComponent } from '../components/created-capsules/created-capsules';
+import { ReceivedCapsulesComponent } from '../components/received-capsules/received-capsules';
+import { CapsuleDetailsPage } from '../pages/capsule-details/capsule-details';
 
 @NgModule({
   declarations: [
     MyApp,
-    AboutPage,
-    ContactPage,
     HomePage,
     TabsPage,
     AccountPage,
     LoginPage,
     RegisterPage,
     CapsulesPage,
-    RequestPasswordResettingPage
+    RequestPasswordResettingPage,
+    DevAppAccessComponent,
+    RecentsCapsulesComponent,
+    CreatedCapsulesComponent,
+    ReceivedCapsulesComponent,
+    CapsuleDetailsPage
   ],
   imports: [
     BrowserModule,
@@ -59,15 +65,18 @@ import { UserProvider } from '../providers/user/user';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    AboutPage,
-    ContactPage,
     HomePage,
     TabsPage,
     AccountPage,
     LoginPage,
     RegisterPage,
     CapsulesPage,
-    RequestPasswordResettingPage
+    RequestPasswordResettingPage,
+    DevAppAccessComponent,
+    RecentsCapsulesComponent,
+    CreatedCapsulesComponent,
+    ReceivedCapsulesComponent,
+    CapsuleDetailsPage
   ],
   providers: [
     StatusBar,

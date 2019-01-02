@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   contact.ts                                         :+:      :+:    :+:   */
+/*   created-capsules.ts                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dlavaury <dlavaury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/20 16:57:37 by dlavaury          #+#    #+#             */
-/*   Updated: 2018/12/20 16:57:38 by dlavaury         ###   ########.fr       */
+/*   Created: 2019/01/02 11:06:07 by dlavaury          #+#    #+#             */
+/*   Updated: 2019/01/02 11:06:08 by dlavaury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
 
 @Component({
-  selector: 'page-contact',
-  templateUrl: 'contact.html'
+  selector: 'created-capsules',
+  templateUrl: 'created-capsules.html'
 })
-export class ContactPage {
+export class CreatedCapsulesComponent {
 
-  constructor(public navCtrl: NavController) {
+  text: string;
 
+  constructor() {
+    console.log('Hello CreatedCapsulesComponent Component');
+    this.text = 'Hello World';
   }
 
 }

@@ -1,7 +1,15 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>home page</ion-title>
-  </ion-navbar>
-</ion-header>
+<ion-content padding>
+  <div padding>
+    <ion-segment [(ngModel)]="capsules">
+      <ion-segment-button value="capsules">My caps</ion-segment-button>
+      <ion-segment-button value="sent">Sent caps</ion-segment-button>
+      <ion-segment-button value="received">Received caps</ion-segment-button>
+    </ion-segment>
+  </div>
 
-<ion-content padding>home page</ion-content>
+  <div [ngSwitch]="capsules">
+    <recents-capsules *ngSwitchCase="'capsules'"></recents-capsules>
+    <created-capsules *ngSwitchCase="'sent'"></created-capsules>
+    <received-capsules *ngSwitchCase="'received'"></received-capsules>
+  </div>
+</ion-content>

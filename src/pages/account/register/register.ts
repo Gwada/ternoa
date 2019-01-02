@@ -6,17 +6,18 @@
 /*   By: dlavaury <dlavaury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 14:05:13 by dlavaury          #+#    #+#             */
-/*   Updated: 2018/12/30 02:51:06 by dlavaury         ###   ########.fr       */
+/*   Updated: 2019/01/01 16:45:01 by dlavaury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, Loading, ToastController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, Loading, ToastController, AlertController, App } from 'ionic-angular';
 import { LoginPage } from '../login/login';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { RegisterForm } from '../../../models/registerForm';
 import { UserProvider } from '../../../providers/user/user';
 import { TabsPage } from '../../tabs/tabs';
+import { AccountPage } from '../account';
 
 @IonicPage()
 @Component({
@@ -32,7 +33,8 @@ export class RegisterPage implements OnInit {
               private userService: UserProvider,
               private loadingCtrl: LoadingController,
               private toastCtrl: ToastController,
-              private alertCtrl: AlertController) {
+              private alertCtrl: AlertController,
+              private app: App) {
   }
 
   ngOnInit(): void {
@@ -84,7 +86,9 @@ export class RegisterPage implements OnInit {
         position: 'bottom'
       }
     ).present();
-    this.navCtrl.setRoot(TabsPage);
+    // replace this line in real mode
+    this.navCtrl.setRoot(this.app.getActiveNavs()[0].getType() !== 'tab' ? TabsPage : AccountPage);
+    // this.navCtrl.setRoot(TabsPage);
   }
 
   onFaillureSignup(toDismiss: Loading, message: string): void {
@@ -110,10 +114,6 @@ export class RegisterPage implements OnInit {
 
   onGoToLoginPage(): void {
     this.navCtrl.setRoot(LoginPage);
-  }
-
-  onGoToTabsPage() {
-    this.navCtrl.setRoot(TabsPage);
   }
 
 }
