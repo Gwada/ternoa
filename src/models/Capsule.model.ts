@@ -1,5 +1,3 @@
-import { User } from "./User";
-
 export class Capsule {
     "@id"?: "/capsules/1111";
     "@type"?: "Capsule";
@@ -12,6 +10,6 @@ export class Capsule {
     createdAt: any;
     updatedAt: any;
     messages: string[];
-    owner: string | User;
-    recipients: string[] | User[];
+    owner: any;
+    recipients: any[];
 }

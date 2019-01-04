@@ -6,20 +6,60 @@
 /*   By: dlavaury <dlavaury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 16:57:42 by dlavaury          #+#    #+#             */
-/*   Updated: 2019/01/02 15:45:58 by dlavaury         ###   ########.fr       */
+/*   Updated: 2019/01/04 13:02:21 by dlavaury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { User } from '../../models/User';
+import { Subscription } from 'rxjs/Subscription';
+import { UserProvider } from '../../providers/user/user';
+import { Capsule } from '../../models/Capsule.model';
+import { LoginPage } from '../account/login/login';
+import { App } from 'ionic-angular';
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
-export class HomePage {
-  capsules: string;
+export class HomePage implements OnInit, OnDestroy {
+  private user: User;
+  userSubscription: Subscription;
+  segment = 'draft';
 
-  constructor() {
-    this.capsules = 'capsules';
+  constructor(private userService: UserProvider,
+              private app: App) {
+  }
+  
+  ngOnInit(): void {
+    this.userSubscription = this.userService.user$.subscribe(
+      (user: User) => this.setUser(user),
+      (err) => {
+        console.log(err);
+        this.userService.logOut();
+        this.app.getRootNav().setRoot(LoginPage);
+      }
+    );
+    this.userService.emitUser();
+  }
+
+  setUser(user: User): void {
+    this.user = user;
+    this.user.capsules.sort(
+      (a: Capsule, b: Capsule) => this.sort(a, b)
+    );
+    this.user.intentedCapsules.sort(
+      (a: Capsule, b: Capsule) => this.sort(a, b)
+    );
+  }
+
+  sort(a: Capsule, b: Capsule): number {
+    if (a.updatedAt < b.updatedAt) return 1;
+    if (a.updatedAt > b.updatedAt) return -1;
+    return 0;
+  }
+
+  ngOnDestroy(): void {
+    this.userSubscription.unsubscribe();
   }
 }

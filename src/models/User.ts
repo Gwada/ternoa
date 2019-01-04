@@ -6,11 +6,9 @@
 /*   By: dlavaury <dlavaury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 16:56:10 by dlavaury          #+#    #+#             */
-/*   Updated: 2019/01/02 16:11:11 by dlavaury         ###   ########.fr       */
+/*   Updated: 2019/01/04 12:14:04 by dlavaury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-import { Capsule } from "./Capsule.model";
 
 export class User {
     '@context'?: string;
@@ -19,15 +17,15 @@ export class User {
 
     city: any = null;
 
-    email: string;
-    fullname: string;
-    username: string;
-    firstName: string;
-    lastName: string;
+    email: string = '';
+    fullname: string = '';
+    username: string = '';
+    firstName: string = '';
+    lastName: string = '';
 
-    capsules: string[] | Capsule[] = [];
-    intentedCapsules: string[] | Capsule[] = [];
+    capsules: any[] = [];
+    intentedCapsules: any[] = [];
 
-    createdAt: any;
-    updatedAt: any;
+    createdAt: any = '';
+    updatedAt: any = '';
 }

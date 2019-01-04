@@ -6,7 +6,7 @@
 /*   By: dlavaury <dlavaury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 09:36:20 by dlavaury          #+#    #+#             */
-/*   Updated: 2019/01/02 15:45:03 by dlavaury         ###   ########.fr       */
+/*   Updated: 2019/01/04 13:09:30 by dlavaury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,8 @@ import { RequestProvider } from '../providers/request/request';
 import { StorageProvider } from '../providers/storage/storage';
 import { UserProvider } from '../providers/user/user';
 import { DevAppAccessComponent } from '../components/dev-app-access/dev-app-access';
-import { RecentsCapsulesComponent } from '../components/recents-capsules/recents-capsules';
-import { CreatedCapsulesComponent } from '../components/created-capsules/created-capsules';
-import { ReceivedCapsulesComponent } from '../components/received-capsules/received-capsules';
-import { CapsuleDetailsPage } from '../pages/capsule-details/capsule-details';
+import { CapsuleListComponent } from '../components/capsules/list/capsule-list';
+import { CapsuleDetailsPage } from '../pages/capsules/details/capsule-details';
 
 @NgModule({
   declarations: [
@@ -49,10 +47,8 @@ import { CapsuleDetailsPage } from '../pages/capsule-details/capsule-details';
     CapsulesPage,
     RequestPasswordResettingPage,
     DevAppAccessComponent,
-    RecentsCapsulesComponent,
-    CreatedCapsulesComponent,
-    ReceivedCapsulesComponent,
-    CapsuleDetailsPage
+    CapsuleDetailsPage,
+    CapsuleListComponent
   ],
   imports: [
     BrowserModule,
@@ -72,11 +68,7 @@ import { CapsuleDetailsPage } from '../pages/capsule-details/capsule-details';
     RegisterPage,
     CapsulesPage,
     RequestPasswordResettingPage,
-    DevAppAccessComponent,
-    RecentsCapsulesComponent,
-    CreatedCapsulesComponent,
-    ReceivedCapsulesComponent,
-    CapsuleDetailsPage
+    CapsuleDetailsPage,
   ],
   providers: [
     StatusBar,

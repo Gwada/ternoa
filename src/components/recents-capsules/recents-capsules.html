@@ -1,7 +1,0 @@
-<ion-list>
-  <ion-item *ngFor="let capsule of user.capsules"
-            (click)="onGoToCapsule(capsule['@id'])">
-    <h4>{{ capsule.title }}</h4>
-    <p>{{ getDate(capsule.updatedAt) }}</p>
-  </ion-item>
-</ion-list>
