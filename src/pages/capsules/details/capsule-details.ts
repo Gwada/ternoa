@@ -6,7 +6,7 @@
 /*   By: dlavaury <dlavaury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/02 15:49:09 by dlavaury          #+#    #+#             */
-/*   Updated: 2019/01/04 15:00:54 by dlavaury         ###   ########.fr       */
+/*   Updated: 2019/01/04 19:47:23 by dlavaury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ import { Capsule } from '../../../models/Capsule.model';
 import { UserProvider } from '../../../providers/user/user';
 import { RequestProvider } from '../../../providers/request/request';
 import { LoginPage } from '../../account/login/login';
+import { Message } from '../../../models/Message.model';
 
 @IonicPage()
 @Component({
@@ -58,10 +59,13 @@ export class CapsuleDetailsPage implements OnInit, OnDestroy {
     const loader = this.loading.create({content: 'Loading in progress...'});
 
     loader.present();
-    this.reqService.get(uri.replace(/^\/?/, '') + '?order[updatedAt]=DESC').then(
+    this.reqService.get(uri.replace(/^\/?/, '')).then(
       (capsule: Capsule) => {
         loader.dismiss();
         this.capsule = capsule;
+        this.capsule.messages.sort(
+          (a: Message, b: Message) => this.sort(a, b)
+        );
         console.log(this.capsule);
       },
       (err) => {
@@ -69,6 +73,12 @@ export class CapsuleDetailsPage implements OnInit, OnDestroy {
         loader.dismiss();
       }
     );
+  }
+
+  sort(a: Message, b: Message): number {
+    if (a.updatedAt < b.updatedAt) return 1;
+    if (a.updatedAt > b.updatedAt) return -1;
+    return 0;
   }
 
   getDate(date: string): string {

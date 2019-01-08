@@ -9,7 +9,7 @@ export class Capsule {
     protocol: any;
     createdAt: any;
     updatedAt: any;
-    messages: string[];
+    messages: any[];
     owner: any;
     recipients: any[];
 }

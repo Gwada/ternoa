@@ -18,9 +18,11 @@
       </p>
     </ion-item>
     <h3>Messages</h3>
+    <ion-icon name="add-circle"></ion-icon>
     <ion-item *ngFor="let message of capsule.messages">
       <p>tittle: {{ message.title }}</p>
       <p>updatedAt: {{ getDate(message.updatedAt) }}</p>
+      <ion-icon name="create"></ion-icon>
       <ion-icon name="remove-circle" color="danger"></ion-icon>
     </ion-item>
   </ion-list>
