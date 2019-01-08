@@ -6,7 +6,7 @@
 /*   By: dlavaury <dlavaury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/02 15:49:09 by dlavaury          #+#    #+#             */
-/*   Updated: 2019/01/04 19:47:23 by dlavaury         ###   ########.fr       */
+/*   Updated: 2019/01/08 17:00:28 by dlavaury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ export class CapsuleDetailsPage implements OnInit, OnDestroy {
 
   setCapsule(uri: string): void {
     const loader = this.loading.create({content: 'Loading in progress...'});
+    console.log(uri);
 
     loader.present();
     this.reqService.get(uri.replace(/^\/?/, '')).then(

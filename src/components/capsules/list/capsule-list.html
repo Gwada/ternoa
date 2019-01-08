@@ -1,6 +1,6 @@
 <ion-list>
   <ion-item *ngFor="let capsule of capsules"
-            (click)="onGoToCapsule(capsule['@id'])">
+            (click)="onGoToCapsule(capsule['@id'], capsule)">
     <h4>{{ capsule.title }}</h4>
     <p>{{ getDate(capsule.updatedAt) }}</p>
     <p>type: {{ capsule.type }}</p>

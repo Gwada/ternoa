@@ -6,7 +6,7 @@
 /*   By: dlavaury <dlavaury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/04 11:06:38 by dlavaury          #+#    #+#             */
-/*   Updated: 2019/01/04 13:10:01 by dlavaury         ###   ########.fr       */
+/*   Updated: 2019/01/08 17:04:51 by dlavaury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,9 @@ export class CapsuleListComponent {
     return (new Date(date)).toDateString();
   }
 
-  onGoToCapsule(capsuleUri: string): void {
+  onGoToCapsule(capsuleUri: string, capsule: Capsule): void {
+    console.log(capsule);
+    console.log(capsuleUri);
     this.navCtrl.push(CapsuleDetailsPage, {capsule: capsuleUri});
   }
 
