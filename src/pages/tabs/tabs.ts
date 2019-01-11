@@ -6,7 +6,7 @@
 /*   By: dlavaury <dlavaury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/19 16:25:50 by dlavaury          #+#    #+#             */
-/*   Updated: 2018/12/29 18:56:06 by dlavaury         ###   ########.fr       */
+/*   Updated: 2019/01/11 16:54:14 by dlavaury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ import { AccountPage } from '../account/account';
 import { Subscription } from 'rxjs/Subscription';
 import { LoginPage } from '../account/login/login';
 import { UserProvider } from '../../providers/user/user';
-import { CapsulesPage } from '../capsules/capsules';
+import { ModalController } from 'ionic-angular';
+import { CreateCapsulePage } from '../capsules/capsule';
 
 @Injectable()
 @Component({
@@ -25,14 +26,15 @@ import { CapsulesPage } from '../capsules/capsules';
 })
 export class TabsPage implements OnInit, OnDestroy {
   homePage = HomePage;
-  capsulePage = CapsulesPage;
+  capsulePage: any;
   account: any;
   isAuth: boolean;
   userSubscription: Subscription;
   accountPage = AccountPage;
   loginPage = LoginPage;
 
-  constructor(private userService: UserProvider) {
+  constructor(private userService: UserProvider,
+              private modalCtrl: ModalController) {
   }
 
   ngOnInit(): void {
@@ -43,6 +45,11 @@ export class TabsPage implements OnInit, OnDestroy {
       }
     );
     this.userService.emitIsAuth();
+    this.capsulePage = this.modalCtrl.create(CreateCapsulePage);
+  }
+
+  onCreateCapsule() {
+    this.capsulePage.present();
   }
 
   ngOnDestroy(): void {

@@ -1,5 +1,5 @@
-<ion-tabs>
+<ion-tabs #menu>
   <ion-tab [root]="homePage" tabTitle="home" tabIcon="home"></ion-tab>
-  <ion-tab [root]="capsulePage" tabTitle="new" tabIcon="add"></ion-tab>
+  <ion-tab (ionSelect)="onCreateCapsule()" tabTitle="new" tabIcon="add"></ion-tab>
   <ion-tab [root]="account" tabTitle="account" tabIcon="person"></ion-tab>
 </ion-tabs>

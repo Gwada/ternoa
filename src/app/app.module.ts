@@ -6,7 +6,7 @@
 /*   By: dlavaury <dlavaury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 09:36:20 by dlavaury          #+#    #+#             */
-/*   Updated: 2019/01/04 13:09:30 by dlavaury         ###   ########.fr       */
+/*   Updated: 2019/01/11 16:50:56 by dlavaury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,33 +22,37 @@ import { IonicStorageModule } from '@ionic/storage';
 import { MyApp } from './app.component';
 
 import { AccountPage } from '../pages/account/account';
-import { CapsulesPage } from '../pages/capsules/capsules';
+import { CapsuleDetailsPage } from '../pages/capsules/details/capsule-details';
+import { CapsuleListComponent } from '../components/capsules/list/capsule-list';
+import { CreateCapsulePage } from '../pages/capsules/capsule';
+import { CreateStep_1Page } from '../pages/capsules/create-step-1/create-step-1';
+import { CreateStep_2Page } from '../pages/capsules/create-step-2/create-step-2';
+import { DevAppAccessComponent } from '../components/dev-app-access/dev-app-access';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/account/login/login';
 import { RegisterPage } from '../pages/account/register/register';
 import { RequestPasswordResettingPage } from '../pages/account/request-password-resetting/request-password-resetting';
-import { TabsPage } from '../pages/tabs/tabs';
-
 import { RequestProvider } from '../providers/request/request';
 import { StorageProvider } from '../providers/storage/storage';
+import { TabsPage } from '../pages/tabs/tabs';
 import { UserProvider } from '../providers/user/user';
-import { DevAppAccessComponent } from '../components/dev-app-access/dev-app-access';
-import { CapsuleListComponent } from '../components/capsules/list/capsule-list';
-import { CapsuleDetailsPage } from '../pages/capsules/details/capsule-details';
+import { CapsuleProvider } from '../providers/capsule/capsule';
 
 @NgModule({
   declarations: [
-    MyApp,
-    HomePage,
-    TabsPage,
     AccountPage,
-    LoginPage,
-    RegisterPage,
-    CapsulesPage,
-    RequestPasswordResettingPage,
-    DevAppAccessComponent,
     CapsuleDetailsPage,
-    CapsuleListComponent
+    CapsuleListComponent,
+    CreateCapsulePage,
+    CreateStep_1Page,
+    CreateStep_2Page,
+    DevAppAccessComponent,
+    HomePage,
+    LoginPage,
+    MyApp,
+    RegisterPage,
+    RequestPasswordResettingPage,
+    TabsPage,
   ],
   imports: [
     BrowserModule,
@@ -60,15 +64,17 @@ import { CapsuleDetailsPage } from '../pages/capsules/details/capsule-details';
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp,
-    HomePage,
-    TabsPage,
     AccountPage,
-    LoginPage,
-    RegisterPage,
-    CapsulesPage,
-    RequestPasswordResettingPage,
     CapsuleDetailsPage,
+    CreateCapsulePage,
+    CreateStep_1Page,
+    CreateStep_2Page,
+    HomePage,
+    LoginPage,
+    MyApp,
+    RegisterPage,
+    RequestPasswordResettingPage,
+    TabsPage,
   ],
   providers: [
     StatusBar,
@@ -76,7 +82,8 @@ import { CapsuleDetailsPage } from '../pages/capsules/details/capsule-details';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     RequestProvider,
     UserProvider,
-    StorageProvider
+    StorageProvider,
+    CapsuleProvider
   ]
 })
 export class AppModule {}
