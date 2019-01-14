@@ -6,7 +6,7 @@
 /*   By: dlavaury <dlavaury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/19 16:25:50 by dlavaury          #+#    #+#             */
-/*   Updated: 2019/01/11 16:54:14 by dlavaury         ###   ########.fr       */
+/*   Updated: 2019/01/14 10:52:45 by dlavaury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { LoginPage } from '../account/login/login';
 import { UserProvider } from '../../providers/user/user';
 import { ModalController } from 'ionic-angular';
-import { CreateCapsulePage } from '../capsules/capsule';
+import { CapsuleCreatePage } from '../capsules/create/capsules-create';
 
 @Injectable()
 @Component({
@@ -45,10 +45,11 @@ export class TabsPage implements OnInit, OnDestroy {
       }
     );
     this.userService.emitIsAuth();
-    this.capsulePage = this.modalCtrl.create(CreateCapsulePage);
   }
-
+  
   onCreateCapsule() {
+    this.capsulePage = this.modalCtrl.create(CapsuleCreatePage);
+
     this.capsulePage.present();
   }
 

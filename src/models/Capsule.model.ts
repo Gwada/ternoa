@@ -1,6 +1,6 @@
 export class Capsule {
-    "@id"?: "/capsules/1111";
-    "@type"?: "Capsule";
+    '@id' = '';
+    '@type' = '';
     id: number;
     title: string;
     type: any;
@@ -12,4 +12,5 @@ export class Capsule {
     messages: any[];
     owner: any;
     recipients: any[];
+    credits: number;
 }

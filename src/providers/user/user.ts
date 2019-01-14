@@ -6,7 +6,7 @@
 /*   By: dlavaury <dlavaury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 14:14:57 by dlavaury          #+#    #+#             */
-/*   Updated: 2019/01/02 09:26:25 by dlavaury         ###   ########.fr       */
+/*   Updated: 2019/01/14 17:24:31 by dlavaury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,22 @@ import { Storage } from '@ionic/storage';
 export class UserProvider {
   private user: User;
   private isAuth: boolean = false;
+
+  /**
+   * SUBJECT
+   */
   public user$ = new Subject<User>();
   public isAuth$ = new Subject<boolean>();
-  
+
+  /**
+   * 
+   * @param reqService 
+   * @param storage 
+   */
   constructor(private reqService: RequestProvider,
               private storage: Storage) {
   }
-    
+
   emitIsAuth(): void {
     this.isAuth$.next(this.isAuth);
   }
@@ -41,6 +50,10 @@ export class UserProvider {
     this.isAuth = !this.isAuth;
   }
 
+  /**
+   * Token generation with identifiers
+   * @param form 
+   */
   getToken(form: LoginForm): Promise<any> {
     return new Promise(
       (resolve, reject) => this.reqService.post('login_check', form, 'json').then(
@@ -57,6 +70,9 @@ export class UserProvider {
     );
   }
 
+  /**
+   * Get the profile back with the token
+   */
   getProfile(): Promise<any> {
     return new Promise(
       (resolve, reject) => this.reqService.get('profile').then(
@@ -73,6 +89,25 @@ export class UserProvider {
     );
   }
 
+  /**
+   * Search a user with keyword
+   * @param term 
+   */
+  findUserByTerm(term: string): Promise<any> {
+    const param = `users?searchParam=${term}&order[firstName]`;
+
+    return new Promise(
+      (resolve, reject) => this.reqService.get(param).then(
+        (apiRespnse: any) => resolve(apiRespnse),
+        (err: any) => reject(err)
+      )
+    );
+  }
+
+  /**
+   * GET request to retrieve the token then the user's profile
+   * @param form 
+   */
   signIn(form: LoginForm): Promise<any> {
     return new Promise(
       (resolve, reject) => this.getToken(form).then(
@@ -85,6 +120,10 @@ export class UserProvider {
     );
   }
 
+  /**
+   * POST request for entity creation
+   * @param form 
+   */
   signUp(form: RegisterForm): Promise<any> {
     return new Promise(
       (resolve, reject) => this.reqService.post('users', form, 'json').then(
@@ -94,6 +133,9 @@ export class UserProvider {
     );
   }
 
+  /**
+   * Disconnects the user and destroys the session
+   */
   logOut() {
     delete(this.user);
     this.isAuth = false;

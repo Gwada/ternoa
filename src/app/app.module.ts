@@ -6,7 +6,7 @@
 /*   By: dlavaury <dlavaury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 09:36:20 by dlavaury          #+#    #+#             */
-/*   Updated: 2019/01/11 16:50:56 by dlavaury         ###   ########.fr       */
+/*   Updated: 2019/01/14 10:40:25 by dlavaury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,6 @@ import { MyApp } from './app.component';
 import { AccountPage } from '../pages/account/account';
 import { CapsuleDetailsPage } from '../pages/capsules/details/capsule-details';
 import { CapsuleListComponent } from '../components/capsules/list/capsule-list';
-import { CreateCapsulePage } from '../pages/capsules/capsule';
-import { CreateStep_1Page } from '../pages/capsules/create-step-1/create-step-1';
-import { CreateStep_2Page } from '../pages/capsules/create-step-2/create-step-2';
 import { DevAppAccessComponent } from '../components/dev-app-access/dev-app-access';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/account/login/login';
@@ -37,13 +34,16 @@ import { StorageProvider } from '../providers/storage/storage';
 import { TabsPage } from '../pages/tabs/tabs';
 import { UserProvider } from '../providers/user/user';
 import { CapsuleProvider } from '../providers/capsule/capsule';
+import { CreateStep_1Page } from '../pages/capsules/create/create-step-1/create-step-1';
+import { CreateStep_2Page } from '../pages/capsules/create/create-step-2/create-step-2';
+import { CapsuleCreatePage } from '../pages/capsules/create/capsules-create';
 
 @NgModule({
   declarations: [
     AccountPage,
     CapsuleDetailsPage,
     CapsuleListComponent,
-    CreateCapsulePage,
+    CapsuleCreatePage,
     CreateStep_1Page,
     CreateStep_2Page,
     DevAppAccessComponent,
@@ -66,7 +66,7 @@ import { CapsuleProvider } from '../providers/capsule/capsule';
   entryComponents: [
     AccountPage,
     CapsuleDetailsPage,
-    CreateCapsulePage,
+    CapsuleCreatePage,
     CreateStep_1Page,
     CreateStep_2Page,
     HomePage,

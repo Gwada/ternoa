@@ -1,0 +1,41 @@
+<ion-content padding>
+  <div [ngStyle]="{'display': 'flex',
+                  'justify-content': 'space-between'}">
+    <button ion-button
+            (click)="onCancel()">
+      Cancel
+    </button>
+    <p>Recipients</p>
+    <button ion-button (click)="onCreateRecipient()">Add recipients</button>
+  </div>
+
+  <ion-searchbar  showCancelButton
+                  color="danger"
+                  (ionInput)="getItems($event)">
+  </ion-searchbar>
+  <ion-list>
+    <ion-item *ngFor="let recipient of recipients$ | async; let i = index"
+              (click)="onAddRecipient(i)">
+      <p>firstName: {{ recipient.firstName }}</p>
+      <p>lastName: {{ recipient.lastName }}</p>
+      <p>email: {{ recipient.email }}</p>
+    </ion-item>
+  </ion-list>
+
+  <div [ngStyle]="{'background-color': 'rgb(151, 237, 49)',
+                  'display': 'flex',
+                  'justify-content': 'center'}">
+    <p [ngStyle]="{'max-width': '70%',
+                  'text-align': 'center'}">
+      Chaque destinataire ajouté consomme un crédit Timesule.
+    </p>
+  </div>
+
+  <ion-list *ngIf="recipients">
+    <ion-item *ngFor="let recipient of recipients">
+      test
+    </ion-item>
+  </ion-list>
+  <p *ngIf="!recipients" padding>Please find the recipient(s) of this capsule</p>
+
+</ion-content>
