@@ -17,10 +17,14 @@
         </ion-input>
       </ion-item>
     </ion-list>
-    <button ion-button
-            full
-            [disabled]="capsuleNameForm.invalid">
-      Next
-    </button>
+    <div [ngStyle]="{'display': 'flex',
+                    'justify-content': 'center'}">
+      <button ion-button
+              [disabled]="capsuleNameForm.invalid"
+              color="secondary"
+              outline>
+        Next <ion-icon name="arrow-round-forward"></ion-icon>
+      </button>
+    </div>
   </form>
 </ion-content>

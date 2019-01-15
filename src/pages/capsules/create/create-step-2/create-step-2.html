@@ -1,19 +1,18 @@
 <ion-content padding>
-  <div [ngStyle]="{'display': 'flex',
-                  'justify-content': 'space-between'}">
-    <button ion-button
-            (click)="onCancel()">
-      Cancel
-    </button>
+  <div [ngStyle]="{'display': 'flex', 'justify-content': 'space-between'}">
+    <button ion-button (click)="onCancel()" color="secondary" clear>Cancel</button>
     <p>Recipients</p>
-    <button ion-button (click)="onCreateRecipient()">Add recipients</button>
+    <button ion-button (click)="onCreateRecipient()">
+      <ion-icon name="add"></ion-icon>
+    </button>
   </div>
 
-  <ion-searchbar  showCancelButton
-                  color="danger"
-                  (ionInput)="getItems($event)">
+  <ion-searchbar showCancelButton
+                color="danger"
+                (ionInput)="getItems($event)">
   </ion-searchbar>
-  <ion-list>
+  <ion-list padding>
+    <ion-spinner *ngIf="spinner"></ion-spinner>
     <ion-item *ngFor="let recipient of recipients$ | async; let i = index"
               (click)="onAddRecipient(i)">
       <p>firstName: {{ recipient.firstName }}</p>
@@ -25,17 +24,32 @@
   <div [ngStyle]="{'background-color': 'rgb(151, 237, 49)',
                   'display': 'flex',
                   'justify-content': 'center'}">
-    <p [ngStyle]="{'max-width': '70%',
-                  'text-align': 'center'}">
-      Chaque destinataire ajouté consomme un crédit Timesule.
+    <p [ngStyle]="{'max-width': '70%', 'text-align': 'center'}">
+      Chaque destinataire ajouté consomme un crédit Timesule. Il vous reste {{ credits }} crédits Timesule.
     </p>
   </div>
 
   <ion-list *ngIf="recipients">
-    <ion-item *ngFor="let recipient of recipients">
-      test
+    <ion-item *ngFor="let recipient of recipientsList">
+      <p>firstName: {{ recipient.firstName }}</p>
+      <p>lastName: {{ recipient.lastName }}</p>
+      <p>email: {{ recipient.email }}</p>
     </ion-item>
   </ion-list>
-  <p *ngIf="!recipients" padding>Please find the recipient(s) of this capsule</p>
+
+  <p *ngIf="!recipients" padding>
+    Vous devez ajouter un destinataire pour cette capsule
+  </p>
+
+  <div [ngStyle]="{'display': 'flex',
+                  'justify-content': 'center'}">
+    <button ion-button
+            (click)="onPostCapsule()"
+            [disabled]="!recipients"
+            color="secondary"
+            outline>
+      Done
+    </button>
+  </div>
 
 </ion-content>

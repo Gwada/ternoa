@@ -6,7 +6,7 @@
 /*   By: dlavaury <dlavaury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 14:14:57 by dlavaury          #+#    #+#             */
-/*   Updated: 2019/01/14 17:24:31 by dlavaury         ###   ########.fr       */
+/*   Updated: 2019/01/15 17:02:23 by dlavaury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ import { Subject } from 'rxjs/Subject';
 import { RequestProvider } from '../request/request';
 import { RegisterForm } from '../../models/registerForm';
 import { Storage } from '@ionic/storage';
+import { ToastController } from 'ionic-angular';
 
 @Injectable()
 export class UserProvider {
@@ -28,6 +29,12 @@ export class UserProvider {
    */
   public user$ = new Subject<User>();
   public isAuth$ = new Subject<boolean>();
+  public creditsSubject = new Subject<number>();
+
+  /**
+   * OBSERVABLES
+   */
+  public credits$ = this.creditsSubject.asObservable();
 
   /**
    * 
@@ -35,15 +42,20 @@ export class UserProvider {
    * @param storage 
    */
   constructor(private reqService: RequestProvider,
-              private storage: Storage) {
+              private storage: Storage,
+              private toastCtrl: ToastController) {
   }
 
   emitIsAuth(): void {
     this.isAuth$.next(this.isAuth);
   }
 
-  emitUser() {
+  emitUser(): void {
     this.user$.next(this.user);
+  }
+
+  emitCredits(): void {
+    this.creditsSubject.next(this.user.credits);
   }
 
   toggleIsAuth(): void {
@@ -133,6 +145,20 @@ export class UserProvider {
     );
   }
 
+  put(body: any): Promise<any> {
+    return new Promise(
+      (resolve, reject) => this.reqService.put(this.EndPoint, body).then(
+        (user: User) => {
+          this.user = user;
+          this.emitUser();
+          console.log(this.user);
+          resolve(user);
+        },
+        err => reject(err)
+      )
+    );
+  }
+
   /**
    * Disconnects the user and destroys the session
    */
@@ -144,4 +170,46 @@ export class UserProvider {
     this.emitUser();
   }
 
+  /**
+   * ACCESSORS
+   */
+  get EndPoint(): string {
+    return this.user['@id'];
+  }
+
+  get Credits(): number {
+    return this.user.credits;
+  }
+
+  adjustCredits(toAdd: number): boolean {
+    if (toAdd + this.user.credits < 0) {
+      this.displayToast('You do not have enough Timesules');
+      return false;
+    }
+    this.user.credits += toAdd;
+    this.emitCredits();
+    if (toAdd < 0) {
+      this.displayToast(`You have consumed ${-toAdd} Timesules`);
+    } else if (toAdd > 0) {
+      this.displayToast(`Your account is credited with ${toAdd} timesules`);
+    }
+    return true;
+  }
+
+  displayToast(msg: string): void {
+    this.toastCtrl.create(
+      {
+        message: msg,
+        duration: 3500
+      }
+    ).present();
+  }
+
+  addCapsule(updatedUser: any): Promise<any> {
+    this.user.capsules.forEach(
+      capsule => updatedUser.capsules.push(capsule['@id'])
+    );
+    console.log(updatedUser);
+    return this.put(updatedUser);
+  }
 }

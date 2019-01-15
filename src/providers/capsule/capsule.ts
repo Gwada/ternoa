@@ -6,13 +6,15 @@
 /*   By: dlavaury <dlavaury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/11 16:52:30 by dlavaury          #+#    #+#             */
-/*   Updated: 2019/01/14 17:24:28 by dlavaury         ###   ########.fr       */
+/*   Updated: 2019/01/15 16:59:09 by dlavaury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { Capsule } from '../../models/Capsule.model';
+import { UserProvider } from '../user/user';
+import { RequestProvider } from '../request/request';
 
 @Injectable()
 export class CapsuleProvider {
@@ -36,7 +38,13 @@ export class CapsuleProvider {
   parent$ = this.parentSubject.asObservable();
   children$ = this.childrenSubject.asObservable();
 
-  addRecipient(toFind: string): void {
+  constructor(private userService: UserProvider,
+              private requestService: RequestProvider) {}
+
+  addRecipient(toFind: string): boolean {
+    if (!this.userService.adjustCredits(-1)) {
+      return ;
+    }
     if (!this.capsule.recipients
     || this.capsule.recipients.indexOf(toFind) < 0) {
       if (this.capsule.recipients) {
@@ -44,10 +52,11 @@ export class CapsuleProvider {
       } else {
         this.capsule.recipients = [toFind];
       }
-      console.log(this.capsule);
       this.emitToParent(this.capsule);
       this.emitToChildren();
+      return true;
     }
+    return false;
   }
 
   /**
@@ -62,6 +71,9 @@ export class CapsuleProvider {
   }
 
   cancelCapsuleCreationProcess(): void {
+    if (this.capsule.recipients) {
+      this.userService.adjustCredits(this.capsule.recipients.length);
+    }
     delete(this.step);
     delete(this.capsule);
     this.emitStep();
@@ -110,4 +122,20 @@ export class CapsuleProvider {
     return this.capsule.title;
   }
 
+  post(body: Capsule): Promise<any> {
+    const updatedUser = {
+      credits: this.userService.Credits,
+      capsules: []
+    };
+
+    return new Promise(
+      (resolve, reject) => this.requestService.post('capsules', body).then(
+        (resp: Capsule) => {
+          updatedUser.capsules.push(resp['@id']);
+          resolve(this.userService.addCapsule(updatedUser));
+        },
+        (err: any) => reject(err)
+      )
+    );
+  }
 }

@@ -6,7 +6,7 @@
 /*   By: dlavaury <dlavaury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 14:13:35 by dlavaury          #+#    #+#             */
-/*   Updated: 2019/01/10 17:07:42 by dlavaury         ###   ########.fr       */
+/*   Updated: 2019/01/15 16:47:40 by dlavaury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,28 @@ export class RequestProvider {
       (resolve, reject) => this.http.post(req.url, body, req.options).subscribe(
         (resp: any) => resolve(resp.json()),
         (err: any) => reject(err.json())
+      )
+    );
+  }
+
+  put(endPoint: string, body: any): Promise<any> {
+    const req: any = this.initRequest(endPoint);
+
+    return new Promise(
+      (resolve, reject) => this.http.put(req.url, body, req.options).subscribe(
+        (resp: any) => resolve(resp.json()),
+        (err: any) => reject(err.json())
+      )
+    );
+  }
+
+  delete(endPoint: string): Promise<any> {
+    const req: any = this.initRequest(endPoint);
+
+    return new Promise(
+      (resolve, reject) => this.http.delete(req.url, req.options).subscribe(
+        (resp) => resolve(resp.json()),
+        (err) => reject(err.json())
       )
     );
   }

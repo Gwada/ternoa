@@ -6,7 +6,7 @@
 /*   By: dlavaury <dlavaury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 16:57:42 by dlavaury          #+#    #+#             */
-/*   Updated: 2019/01/04 13:02:21 by dlavaury         ###   ########.fr       */
+/*   Updated: 2019/01/15 11:10:52 by dlavaury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,25 @@ export class HomePage implements OnInit, OnDestroy {
   private user: User;
   userSubscription: Subscription;
   segment = 'draft';
+  credits: number;
 
   constructor(private userService: UserProvider,
               private app: App) {
   }
   
   ngOnInit(): void {
+    this.initUser();
+    this.initCredits();
+  }
+
+  initCredits(): void {
+    this.userService.credits$.subscribe(
+      (credits: number) => this.credits = credits,
+      (err: any) => console.log(err)
+    );
+    this.userService.emitCredits();
+  }
+  initUser(): void {
     this.userSubscription = this.userService.user$.subscribe(
       (user: User) => this.setUser(user),
       (err) => {
