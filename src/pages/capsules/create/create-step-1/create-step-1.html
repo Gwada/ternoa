@@ -1,9 +1,10 @@
 <ion-content padding>
-  <button ion-button
-          (click)="onCancel()"
-          full>
-    Close
-  </button>
+  <div [ngStyle]="{'display': 'flex',
+                  'justify-content': 'center'}">
+    <button ion-button (click)="onCancel()" round outline color="light">
+      <ion-icon name="close"></ion-icon>
+    </button>
+  </div>
   <p text-center>
     Create a capsule and put everything you want in. Stories, souvenirs, thoughts, dreams and more for the future.
   </p>

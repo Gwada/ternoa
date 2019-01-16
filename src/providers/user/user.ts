@@ -6,7 +6,7 @@
 /*   By: dlavaury <dlavaury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 14:14:57 by dlavaury          #+#    #+#             */
-/*   Updated: 2019/01/15 17:02:23 by dlavaury         ###   ########.fr       */
+/*   Updated: 2019/01/16 16:25:19 by dlavaury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ export class UserProvider {
    */
   getToken(form: LoginForm): Promise<any> {
     return new Promise(
-      (resolve, reject) => this.reqService.post('login_check', form, 'json').then(
+      (resolve, reject) => this.reqService.post('/login_check', form, 'json').then(
         (resp) => {
           if (!resp || !resp.token || resp.token.len < 1) {
             reject(false);
@@ -87,7 +87,7 @@ export class UserProvider {
    */
   getProfile(): Promise<any> {
     return new Promise(
-      (resolve, reject) => this.reqService.get('profile').then(
+      (resolve, reject) => this.reqService.get('/profile').then(
         (profile) => {
           this.isAuth = true;
           this.user = profile;
@@ -106,7 +106,7 @@ export class UserProvider {
    * @param term 
    */
   findUserByTerm(term: string): Promise<any> {
-    const param = `users?searchParam=${term}&order[firstName]`;
+    const param = `/users?searchParam=${term}&order[firstName]`;
 
     return new Promise(
       (resolve, reject) => this.reqService.get(param).then(
@@ -138,7 +138,7 @@ export class UserProvider {
    */
   signUp(form: RegisterForm): Promise<any> {
     return new Promise(
-      (resolve, reject) => this.reqService.post('users', form, 'json').then(
+      (resolve, reject) => this.reqService.post('/users', form, 'json').then(
         () => resolve(true),
         (error) => reject(error)
       )
@@ -203,13 +203,5 @@ export class UserProvider {
         duration: 3500
       }
     ).present();
-  }
-
-  addCapsule(updatedUser: any): Promise<any> {
-    this.user.capsules.forEach(
-      capsule => updatedUser.capsules.push(capsule['@id'])
-    );
-    console.log(updatedUser);
-    return this.put(updatedUser);
   }
 }

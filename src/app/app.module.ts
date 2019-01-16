@@ -6,7 +6,7 @@
 /*   By: dlavaury <dlavaury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 09:36:20 by dlavaury          #+#    #+#             */
-/*   Updated: 2019/01/14 10:40:25 by dlavaury         ###   ########.fr       */
+/*   Updated: 2019/01/16 15:26:03 by dlavaury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ import { CapsuleProvider } from '../providers/capsule/capsule';
 import { CreateStep_1Page } from '../pages/capsules/create/create-step-1/create-step-1';
 import { CreateStep_2Page } from '../pages/capsules/create/create-step-2/create-step-2';
 import { CapsuleCreatePage } from '../pages/capsules/create/capsules-create';
+import { CapsuleUsersComponent } from '../components/capsules/users/capsule-users';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { CapsuleCreatePage } from '../pages/capsules/create/capsules-create';
     CapsuleDetailsPage,
     CapsuleListComponent,
     CapsuleCreatePage,
+    CapsuleUsersComponent,
     CreateStep_1Page,
     CreateStep_2Page,
     DevAppAccessComponent,

@@ -6,7 +6,7 @@
 /*   By: dlavaury <dlavaury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/11 16:52:30 by dlavaury          #+#    #+#             */
-/*   Updated: 2019/01/15 16:59:09 by dlavaury         ###   ########.fr       */
+/*   Updated: 2019/01/16 16:25:22 by dlavaury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,9 @@ export class CapsuleProvider {
    * SERVICE SUBJECTS
    */
   stepSubject = new Subject<number>();
-  parentSubject = new Subject<any>();
-  childrenSubject = new Subject<any>();
+  parentSubject = new Subject<Capsule>();
+  childrenSubject = new Subject<Capsule>();
+  completeProcessSubject = new Subject<any>();
 
   /**
    * SERVICE OBSERVABLES
@@ -37,6 +38,7 @@ export class CapsuleProvider {
   step$ = this.stepSubject.asObservable();
   parent$ = this.parentSubject.asObservable();
   children$ = this.childrenSubject.asObservable();
+  completeProcess$ = this.completeProcessSubject.asObservable();
 
   constructor(private userService: UserProvider,
               private requestService: RequestProvider) {}
@@ -108,6 +110,10 @@ export class CapsuleProvider {
     this.stepSubject.next(this.step);
   }
 
+  emitCompletedCreationProcess(value: any): void {
+    this.completeProcessSubject.next(value);
+  }
+
   goToPreviousStep() {
     if (this.step > 1) {
       this.stepSubject.next(--this.step);
@@ -123,17 +129,45 @@ export class CapsuleProvider {
   }
 
   post(body: Capsule): Promise<any> {
-    const updatedUser = {
-      credits: this.userService.Credits,
-      capsules: []
-    };
-
     return new Promise(
-      (resolve, reject) => this.requestService.post('capsules', body).then(
-        (resp: Capsule) => {
-          updatedUser.capsules.push(resp['@id']);
-          resolve(this.userService.addCapsule(updatedUser));
-        },
+      (resolve, reject) => this.requestService.post('/capsules', body).then(
+        (resp: Capsule) => resolve(resp),
+        (err: any) => reject(err)
+      )
+    );
+  }
+
+  put(endPoint: string, body: Capsule): Promise<Capsule> {
+    return new Promise(
+      (resolve, reject) => this.requestService.put(endPoint, body).then(
+        (resp: Capsule) => resolve(resp),
+        (err: any) => reject(err)
+      )
+    );
+  }
+
+  delete(endPoint: string): Promise<any> {
+    return new Promise(
+      (resolve, reject) => this.requestService.delete(endPoint).then(
+        (resp: any) => resolve(resp),
+        (err: any) => reject(err)
+      )
+    );
+  }
+
+  get(endPoint: string): Promise<Capsule> {
+    return new Promise(
+      (resolve, reject) => this.requestService.get(endPoint).then(
+        (resp: Capsule) => resolve(resp),
+        (err: any) => reject(err)
+      )
+    );
+  }
+
+  getList(params: string): Promise<any> {
+    return new Promise(
+      (resolve, reject) => this.requestService.get(`/capsules?${params}`).then(
+        (resp: Capsule[]) => resolve(resp),
         (err: any) => reject(err)
       )
     );

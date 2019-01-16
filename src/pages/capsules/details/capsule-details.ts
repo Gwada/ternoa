@@ -6,7 +6,7 @@
 /*   By: dlavaury <dlavaury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/02 15:49:09 by dlavaury          #+#    #+#             */
-/*   Updated: 2019/01/11 14:44:45 by dlavaury         ###   ########.fr       */
+/*   Updated: 2019/01/16 10:54:01 by dlavaury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ import { Subscription } from 'rxjs/Subscription';
 import { User } from '../../../models/User';
 import { Capsule } from '../../../models/Capsule.model';
 import { UserProvider } from '../../../providers/user/user';
-import { RequestProvider } from '../../../providers/request/request';
 import { LoginPage } from '../../account/login/login';
 import { Message } from '../../../models/Message.model';
+import { CapsuleProvider } from '../../../providers/capsule/capsule';
 
 @IonicPage()
 @Component({
@@ -33,9 +33,9 @@ export class CapsuleDetailsPage implements OnInit, OnDestroy {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private userService: UserProvider,
-              private reqService: RequestProvider,
               private app: App,
-              private loading: LoadingController) {
+              private loading: LoadingController,
+              private capsuleService: CapsuleProvider) {
   }
 
   ngOnInit(): void {
@@ -47,7 +47,6 @@ export class CapsuleDetailsPage implements OnInit, OnDestroy {
     this.userSubscription = this.userService.user$.subscribe(
       (user: User) => this.user = user,
       (err) => {
-        console.log(err);
         this.userService.logOut();
         this.app.getRootNav().setRoot(LoginPage);
       }
@@ -59,14 +58,13 @@ export class CapsuleDetailsPage implements OnInit, OnDestroy {
     const loader = this.loading.create({content: 'Loading in progress...'});
 
     loader.present();
-    this.reqService.get(uri.replace(/^\/?/, '')).then(
+    this.capsuleService.get(uri).then(
       (capsule: Capsule) => {
         loader.dismiss();
         this.capsule = capsule;
         this.capsule.messages.sort(
           (a: Message, b: Message) => this.sort(a, b)
         );
-        console.log(this.capsule);
       },
       (err) => {
         console.log(err);

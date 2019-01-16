@@ -1,6 +1,6 @@
 <ion-content padding>
   <div [ngStyle]="{'display': 'flex', 'justify-content': 'space-between'}">
-    <button ion-button (click)="onCancel()" color="secondary" clear>Cancel</button>
+    <button ion-button color="secondary" clear (click)="onCancel()">Cancel</button>
     <p>Recipients</p>
     <button ion-button (click)="onCreateRecipient()">
       <ion-icon name="add"></ion-icon>
@@ -15,9 +15,12 @@
     <ion-spinner *ngIf="spinner"></ion-spinner>
     <ion-item *ngFor="let recipient of recipients$ | async; let i = index"
               (click)="onAddRecipient(i)">
-      <p>firstName: {{ recipient.firstName }}</p>
-      <p>lastName: {{ recipient.lastName }}</p>
-      <p>email: {{ recipient.email }}</p>
+      <ion-avatar item-start>
+        <img [src]="'https://pbs.twimg.com/profile_images/653700295395016708/WjGTnKGQ_400x400.png'">
+      </ion-avatar>
+      <h2>{{ recipient.firstName }}</h2>
+      <p>{{ recipient.lastName }}</p>
+      <ion-note item-end>{{ recipient.email }}</ion-note>
     </ion-item>
   </ion-list>
 
@@ -30,26 +33,22 @@
   </div>
 
   <ion-list *ngIf="recipients">
-    <ion-item *ngFor="let recipient of recipientsList">
-      <p>firstName: {{ recipient.firstName }}</p>
-      <p>lastName: {{ recipient.lastName }}</p>
-      <p>email: {{ recipient.email }}</p>
-    </ion-item>
+    <capsule-users *ngFor="let user of recipientsList; let i = index"
+                  [user]="user"
+                  [index]="i"
+                  [(recipientsList)]="recipientsList"></capsule-users>
   </ion-list>
 
   <p *ngIf="!recipients" padding>
     Vous devez ajouter un destinataire pour cette capsule
   </p>
 
-  <div [ngStyle]="{'display': 'flex',
-                  'justify-content': 'center'}">
+  <div [ngStyle]="{'display': 'flex', 'justify-content': 'center'}">
     <button ion-button
             (click)="onPostCapsule()"
             [disabled]="!recipients"
             color="secondary"
-            outline>
-      Done
-    </button>
+            outline>Done</button>
   </div>
 
 </ion-content>

@@ -6,7 +6,7 @@
 /*   By: dlavaury <dlavaury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 14:13:35 by dlavaury          #+#    #+#             */
-/*   Updated: 2019/01/15 16:47:40 by dlavaury         ###   ########.fr       */
+/*   Updated: 2019/01/16 10:36:51 by dlavaury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@ import { RequestOptions, Http, Headers } from '@angular/http';
 
 @Injectable()
 export class RequestProvider {
-  // apiBaseUrl: string = 'http://35.180.189.141:8080/';
-  apiBaseUrl: string = 'http://api:8080/';
+  // apiBaseUrl: string = 'http://35.180.189.141:8080';
+  apiBaseUrl: string = 'http://api:8080';
   private token: string = '';
 
   constructor(public http: Http) {

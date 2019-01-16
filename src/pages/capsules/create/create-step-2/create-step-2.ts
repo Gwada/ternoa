@@ -6,12 +6,12 @@
 /*   By: dlavaury <dlavaury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/14 11:39:57 by dlavaury          #+#    #+#             */
-/*   Updated: 2019/01/15 16:34:50 by dlavaury         ###   ########.fr       */
+/*   Updated: 2019/01/16 16:25:15 by dlavaury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 import { Component, Input, OnInit } from '@angular/core';
-import { IonicPage, ViewController, LoadingController } from 'ionic-angular';
+import { IonicPage, ViewController } from 'ionic-angular';
 import { CapsuleProvider } from '../../../../providers/capsule/capsule';
 import { Capsule } from '../../../../models/Capsule.model';
 import { UserProvider } from '../../../../providers/user/user';
@@ -37,8 +37,7 @@ export class CreateStep_2Page implements OnInit {
 
   constructor(private viewCtrl: ViewController,
               private capsuleService: CapsuleProvider,
-              private userService: UserProvider,
-              private loadingCtrl: LoadingController) {
+              private userService: UserProvider) {
   }
 
   ngOnInit(): void {
@@ -59,7 +58,6 @@ export class CreateStep_2Page implements OnInit {
       (capsule: Capsule) => this.capsule = capsule
     );
     this.capsuleService.emitToChildren();
-    console.log(this.capsule);
   }
 
   cancelSearch($event: any): void {
@@ -84,15 +82,13 @@ export class CreateStep_2Page implements OnInit {
   }
 
   itemsfilter(apiResponse: any): void {
-    console.log(apiResponse);
     this.spinner = false;
-
     apiResponse['hydra:member'] = apiResponse['hydra:member'].filter(
       (user: User) => this.hasItem(user)
     );
     this.apiResponse = apiResponse;
-    this.recipientSubject.next(this.apiResponse['hydra:member']);
-    console.log(this.apiResponse['hydra:member'].length);
+
+    this.recipientSubject.next(apiResponse['hydra:member']);
   }
 
   hasItem(user: User): boolean {
@@ -102,9 +98,7 @@ export class CreateStep_2Page implements OnInit {
       return false;
     }
     this.recipientsList.forEach(
-      (selected: User) => {
-        ret = ret && selected['@id'] !== user['@id']
-      }
+      (selected: User) => ret = ret && selected['@id'] !== user['@id']
     )
     return ret;
   }
@@ -123,32 +117,17 @@ export class CreateStep_2Page implements OnInit {
   }
 
   onPostCapsule(): void {
-    const loader = this.loadingCtrl.create({content: 'Please wait...'});
     this.capsule.owner = this.userService.EndPoint;
 
     delete(this.capsule['@id']);
     delete(this.capsule['@type']);
-    console.log(this.capsule);
-    loader.present();
-    this.capsuleService.post(this.capsule).then(
-      (resp) => {
-        loader.dismiss();
-        console.log(resp);
-      },
-      (err) => {
-        loader.dismiss();
-        console.log(err);
-      }
-    );
+    this.capsuleService.emitToParent(this.capsule);
+    this.capsuleService.emitCompletedCreationProcess(true);
   }
 
   onCancel(): void {
-    // this.userService.adjustCredits(-this.recipientsList.length);
     this.capsuleService.cancelCapsuleCreationProcess();
     this.viewCtrl.dismiss();
-  }
-
-  displayToast(): void {
   }
 
 }
