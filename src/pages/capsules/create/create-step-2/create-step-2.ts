@@ -6,7 +6,7 @@
 /*   By: dlavaury <dlavaury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/14 11:39:57 by dlavaury          #+#    #+#             */
-/*   Updated: 2019/01/16 16:25:15 by dlavaury         ###   ########.fr       */
+/*   Updated: 2019/01/17 16:41:43 by dlavaury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ export class CreateStep_2Page implements OnInit {
     this.apiResponse = null;
 
     this.recipientSubject.next(null);
-    if (val && val.length > 4 && val.trim() !== '') {
+    if (val && val.length > 0 && val.trim() !== '') {
       this.spinner = true;
       this.userService.findUserByTerm(val).then(
         (apiResponse: any) => this.itemsfilter(apiResponse),

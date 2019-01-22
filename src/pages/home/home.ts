@@ -6,7 +6,7 @@
 /*   By: dlavaury <dlavaury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 16:57:42 by dlavaury          #+#    #+#             */
-/*   Updated: 2019/01/15 11:10:52 by dlavaury         ###   ########.fr       */
+/*   Updated: 2019/01/17 16:39:55 by dlavaury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,14 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   setUser(user: User): void {
-    this.user = user;
-    this.user.capsules.sort(
-      (a: Capsule, b: Capsule) => this.sort(a, b)
-    );
-    this.user.intentedCapsules.sort(
-      (a: Capsule, b: Capsule) => this.sort(a, b)
-    );
+    if ((this.user = user)) {
+      this.user.capsules.sort(
+        (a: Capsule, b: Capsule) => this.sort(a, b)
+      );
+      this.user.intentedCapsules.sort(
+        (a: Capsule, b: Capsule) => this.sort(a, b)
+      );
+    }
   }
 
   sort(a: Capsule, b: Capsule): number {
